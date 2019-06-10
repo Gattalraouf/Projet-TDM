@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">Mobile Project</string>
+    <string name="product_name">Product Name:</string>
+    <string name="name_hint">Name</string>
+    <string name="product_description">Product Description:</string>
+    <string name="description_hint">Description</string>
+    <string name="product_picture">Product Picture:</string>
+    <string name="links_hint">Links (use comma)</string>
+    <string name="upload_product_photos">upload product photos</string>
+    <string name="owner_name">Owner Name:</string>
+    <string name="full_name_hint">Full Name</string>
+    <string name="owner_picture">Owner Picture:</string>
+    <string name="link_hint">Link</string>
+    <string name="owner_email">Owner Email:</string>
+    <string name="email_hint">Email</string>
+    <string name="owner_phone_number">Owner Phone Number:</string>
+    <string name="phone_number_hint">Phone Number</string>
+    <string name="confirm">Confirm</string>
+    <string name="announces">Announces</string>
+    <string name="contacts">Contacts:</string>
+    <string name="email">Email:</string>
+    <string name="phone_number">Phone Number:</string>
+    <string name="call_the_owner">Call the owner</string>
+    <string name="email_the_owner">Email the owner</string>
+    <string name="owner_profile_picture">Owner Profile Picture</string>
+    <string name="product_picture_image">Product picture</string>
+    <string name="sort">sort</string>
+    <string name="search">Search</string>
+</resources>
