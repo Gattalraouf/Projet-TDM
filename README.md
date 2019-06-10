@@ -26,6 +26,10 @@ données ni de services web.
 
 ## Livrables
 
-- Maquette
+- [Maquette](https://gallery.io/projects/MCHbtQVoQ2HCZSYVXrhsZZzK)
 - Binaire de l’application
 - Code Source
+
+## Authors 
+* Abderraouf GATTAL
+* Mouna BOUTEMINE
