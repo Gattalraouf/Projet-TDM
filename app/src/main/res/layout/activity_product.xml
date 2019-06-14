@@ -50,6 +50,7 @@
             app:barrierDirection="bottom"
             app:constraint_referenced_ids="textView5,textView6"/>
 
+
     <TextView
             tools:text="Jhon Doe"
             android:layout_width="0dp"
@@ -145,6 +146,27 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:id="@+id/PhoneNumber"/>
+    <TextView
+            android:text="@string/wilaya"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/phone"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/wilayaDes"/>
+
+    <TextView
+            tools:text="Alger"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/wilayaDes"
+            app:layout_constraintBottom_toBottomOf="@id/wilayaDes"
+            app:layout_constraintStart_toEndOf="@id/wilayaDes"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/ProductwilayaName"/>
 
     <ImageButton
             android:layout_width="20dp"
@@ -157,5 +179,25 @@
             android:layout_marginEnd="16dp"
             android:id="@+id/callOwnerImageButtton"
             android:contentDescription="@string/call_the_owner"/>
+    <TextView
+            android:text="@string/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wilayaDes"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/date"/>
 
+    <TextView
+            tools:text="13/10/2018"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/date"
+            app:layout_constraintBottom_toBottomOf="@id/date"
+            app:layout_constraintStart_toEndOf="@id/date"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/dateText"/>
 </android.support.constraint.ConstraintLayout>

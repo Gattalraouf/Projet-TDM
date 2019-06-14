@@ -57,7 +57,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "Ashley Park Road, YORK", "This large family house..."
+                ), imgs, "Ashley Park Road, YORK", "This large family house..." ,"Alger","13/11/2018"
             )
         )
 
@@ -74,7 +74,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "28 Gillygate, York", "Large mature garden to the rear extending up to the historic city walls. Pedestrian side access to Gillygate."
+                ), imgs, "28 Gillygate, York", "Large mature garden to the rear extending up to the historic city walls. Pedestrian side access to Gillygate." ,"Alger","13/11/2018"
             )
         )
 
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "The Residence, YORK", "The Penthouse is the largest apartment on the development measuring approximately 3000 sq ft."
+                ), imgs, "The Residence, YORK", "The Penthouse is the largest apartment on the development measuring approximately 3000 sq ft.","Oran","13/11/2018"
             )
         )
 
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "The Old Fire Station, York", "This exceptional re-development of one of York's most famous sites will deliver 7 exceptional apartments."
+                ), imgs, "The Old Fire Station, York", "This exceptional re-development of one of York's most famous sites will deliver 7 exceptional apartments." ,"Oran","13/11/2018"
             )
         )
 

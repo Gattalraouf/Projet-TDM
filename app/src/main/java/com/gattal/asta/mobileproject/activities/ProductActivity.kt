@@ -30,6 +30,7 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var desc: TextView
     private lateinit var owner: TextView
     private lateinit var productName: TextView
+
     private lateinit var emailSend: ImageButton
     private lateinit var call: ImageButton
     private lateinit var product: Product
@@ -70,6 +71,8 @@ class ProductActivity : AppCompatActivity() {
         desc.text = product.descr
         owner.text = product.owner.name
         productName.text = product.name
+        dateText.text=product.Datedep
+        ProductwilayaName.text= product.Wilaya
 
         Glide.with(this)
             .load(product.owner.pic)

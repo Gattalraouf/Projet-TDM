@@ -12,6 +12,9 @@ import com.gattal.asta.mobileproject.data.Owner
 import com.gattal.asta.mobileproject.data.Product
 import com.gattal.asta.mobileproject.R
 import kotlinx.android.synthetic.main.activity_add_product.*
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AddProductActivity : AppCompatActivity() {
 
@@ -27,6 +30,7 @@ class AddProductActivity : AppCompatActivity() {
     private lateinit var confirmButtonView: Button
     private lateinit var productObject: Product
     private lateinit var ownerObject: Owner
+    private lateinit var productWilaya: EditText
     private var imgs: MutableList<String> = ArrayList()
     private lateinit var imgOwner: String
 
@@ -49,6 +53,7 @@ class AddProductActivity : AppCompatActivity() {
         ownerPhone = ownerPhoneEditText
         ownerPic = ownerPicLinkEditText
         ownerPicButton = ownerPicLinkImageButton
+        productWilaya = WilayaText
         confirmButtonView = confirmButton
         imgOwner = ""
         imgs = ArrayList()
@@ -62,7 +67,7 @@ class AddProductActivity : AppCompatActivity() {
         }
 
         confirmButtonView.setOnClickListener {
-
+            checkEditText(productWilaya)
             checkEditText(productDescr)
             checkEditText(productName)
             checkEditText(ownerEmail)
@@ -75,6 +80,7 @@ class AddProductActivity : AppCompatActivity() {
                 checkEditText(productPics)
 
             if (productDescr.error == null
+                && productWilaya.error == null
                 && productName.error == null
                 && ownerEmail.error == null
                 && ownerName.error == null
@@ -98,21 +104,26 @@ class AddProductActivity : AppCompatActivity() {
                         ownerEmail.text.toString(),
                         ownerPhone.text.toString()
                     )
-
+                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                val currentDate = sdf.format(Date())
                 if (imgs.size != 0) {
                     productObject =
                         Product(
                             ownerObject,
                             imgs,
                             productName.text.toString(),
-                            productDescr.text.toString()
+                            productDescr.text.toString(),
+                            wilaya.text.toString(),
+                            currentDate
                         )
                 } else if (ownerPic.text != null)
                     productObject = Product(
                         ownerObject,
                         productPics.text.toString().split(","),
                         productName.text.toString(),
-                        productDescr.text.toString()
+                        productDescr.text.toString(),
+                        wilaya.text.toString(),
+                        currentDate
                     )
 
                 val intent = Intent(this, MainActivity::class.java)

@@ -5,11 +5,14 @@
     <string name="product_description">Product Description:</string>
     <string name="description_hint">Description</string>
     <string name="product_picture">Product Picture:</string>
+    <string name="date">Post the ad on :</string>
     <string name="links_hint">Links (use comma)</string>
     <string name="upload_product_photos">upload product photos</string>
     <string name="owner_name">Owner Name:</string>
     <string name="full_name_hint">Full Name</string>
     <string name="owner_picture">Owner Picture:</string>
+    <string name="wilaya">Wilaya:</string>
+    <string name="wilaya_hint">Wilaya</string>
     <string name="link_hint">Link</string>
     <string name="owner_email">Owner Email:</string>
     <string name="email_hint">Email</string>
