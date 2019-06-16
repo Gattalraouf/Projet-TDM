@@ -45,6 +45,7 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
 
             viewHolder.productName.text = product.name
             viewHolder.productowner.text = product.owner.name
+            viewHolder.wilaya.text = product.Wilaya
 
             Glide.with(viewHolder.itemImageView.context)
                 .load(product.imgs[0])
@@ -81,10 +82,8 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
                         for (row in productArrayList) {
 
 
-                            if (row.name.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.contains(
-                                    charSequence
-                                )
-                            ) {
+                            if (row.name.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(charString.toLowerCase()) || row.Wilaya.toLowerCase().contains(charString.toLowerCase()))
+                            {
                                 filteredList.add(row)
                             }
                         }
@@ -109,6 +108,7 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
         internal var itemImageView: ImageView = view.productImageView
         internal var productName: TextView = view.productNameTextView
         internal var productowner: TextView = view.OwnerNameTextView
+        internal var wilaya: TextView = view.WilayaText
         internal var holderCardView: CardView = view.cardViewHolder
 
     }
