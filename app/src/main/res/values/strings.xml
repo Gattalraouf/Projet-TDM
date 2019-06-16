@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <string name="app_name">Mobile Project</string>
     <string name="product_name">Product N:</string>
     <string name="name_hint">Name</string>
@@ -29,4 +29,11 @@
     <string name="product_picture_image">Product picture</string>
     <string name="sort">sort</string>
     <string name="search">Search</string>
+
+    <string-array name="spinner_sort">
+        <item android:id="@+id/no_sort"></item>
+        <item android:id="@+id/name_sort">Name</item>
+        <item android:id="@+id/owner_sort">Owner</item>
+        <item android:id="@+id/wilaya_sort">Wilaya</item>
+    </string-array>
 </resources>

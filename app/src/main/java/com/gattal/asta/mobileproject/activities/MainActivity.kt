@@ -18,8 +18,10 @@ import com.gattal.asta.mobileproject.data.Product
 import com.gattal.asta.mobileproject.R
 import kotlinx.android.synthetic.main.activity_main.*
 import android.content.pm.PackageManager
-
-
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.AdapterView
+import android.util.Log
 
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
@@ -27,6 +29,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
     private lateinit var products: MutableList<Product>
+    private lateinit var productsCopy: MutableList<Product>
     private lateinit var imgs: MutableList<String>
     private lateinit var searchView: SearchView
 
@@ -43,6 +46,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         super.onStart()
 
         products = ArrayList()
+        productsCopy = ArrayList()
 
         imgs = ArrayList()
         imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
@@ -113,12 +117,15 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             )
         )
 
+        productsCopy = products.toMutableList()
+
 
         val intent = intent
         val product: Product
         if (intent.getSerializableExtra("newProduct") != null) {
             product = intent.getSerializableExtra("newProduct") as Product
             products.add(product)
+            productsCopy.add(product)
         }
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
@@ -165,6 +172,70 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                 return false
             }
         })
+
+        val item = menu.findItem(R.id.sort)
+        val spinner = item.actionView as Spinner
+
+        val adapter = ArrayAdapter.createFromResource(
+            this,
+            R.array.spinner_sort, android.R.layout.simple_spinner_item
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+
+        spinner.adapter = adapter
+
+        recyclerViewAdapter.setOnItemClickListener(this)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+
+            override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
+
+                when(i){
+                    0->{
+                        recyclerViewAdapter = RecyclerViewAdapter(productsCopy)
+                        recyclerView.adapter = recyclerViewAdapter
+                    }
+                    1->{
+                        products.sortWith(Comparator { lhs, rhs ->
+                            when {
+                                lhs.name > rhs.name -> -1
+                                lhs.name == rhs.name -> 0
+                                else -> 1
+                            }
+                        })
+                        recyclerViewAdapter = RecyclerViewAdapter(products)
+                        recyclerView.adapter = recyclerViewAdapter
+                    }
+                    2->{
+                        products.sortWith(Comparator { lhs, rhs ->
+                        when {
+                            lhs.owner.name > rhs.owner.name -> -1
+                            lhs.owner.name == rhs.owner.name -> 0
+                            else -> 1
+                        }
+                    })
+                        recyclerViewAdapter = RecyclerViewAdapter(products)
+                        recyclerView.adapter = recyclerViewAdapter
+                    }
+                    3->{
+                        products.sortWith(Comparator { lhs, rhs ->
+                            when {
+                                lhs.Wilaya > rhs.Wilaya -> -1
+                                lhs.Wilaya == rhs.Wilaya -> 0
+                                else -> 1
+                            }
+                        })
+                        recyclerViewAdapter = RecyclerViewAdapter(products)
+                        recyclerView.adapter = recyclerViewAdapter
+                    }
+                }
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>) {
+
+            }
+        }
+
         return true
     }
 
@@ -182,16 +253,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         // Handle item selection
         return when (item.itemId) {
             R.id.sort -> {
-                products.sortWith(Comparator { lhs, rhs ->
-                    when {
-                        lhs.name > rhs.name -> -1
-                        lhs.name == rhs.name -> 0
-                        else -> 1
-                    }
-                })
-                recyclerViewAdapter = RecyclerViewAdapter(products)
-                recyclerViewAdapter.setOnItemClickListener(this)
-                recyclerView.adapter = recyclerViewAdapter
 
                 true
             }
