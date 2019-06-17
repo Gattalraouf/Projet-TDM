@@ -33,6 +33,7 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var productwilaya: TextView
     private lateinit var emailSend: ImageButton
     private lateinit var call: ImageButton
+    private lateinit var position: ImageButton
     private lateinit var product: Product
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -58,6 +59,7 @@ class ProductActivity : AppCompatActivity() {
         emailSend = sendEmailImageButton
         call = callOwnerImageButtton
         productwilaya = ProductwilayaName
+        position = PositionImageButtton
 
         val intent = intent
         product = intent.getSerializableExtra("product") as Product
@@ -72,8 +74,8 @@ class ProductActivity : AppCompatActivity() {
         desc.text = product.descr
         owner.text = product.owner.name
         productName.text = product.name
-        dateText.text=product.Datedep
-        productwilaya.text= product.Wilaya
+        dateText.text = product.Datedep
+        productwilaya.text = product.Wilaya
 
         Glide.with(this)
             .load(product.owner.pic)
@@ -93,6 +95,15 @@ class ProductActivity : AppCompatActivity() {
 
             onCallBtnClick("tel:${product.owner.phone}")
 
+        }
+
+        position.setOnClickListener {
+            val gmmIntentUri = Uri.parse("geo:0,0?q=${productwilaya.text}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            if (mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(mapIntent)
+            }
         }
 
 

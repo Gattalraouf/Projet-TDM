@@ -3,14 +3,12 @@ package com.gattal.asta.mobileproject.activities
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -223,7 +221,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     }
 
 
-    fun sortData(i:Int){
+    fun sortData(i: Int) {
         when (i) {
             0 -> {
                 recyclerViewAdapter = RecyclerViewAdapter(productsCopy)
@@ -291,7 +289,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         intent.putExtra("product", obj)
         startActivity(intent)
     }
-
 
 
 }

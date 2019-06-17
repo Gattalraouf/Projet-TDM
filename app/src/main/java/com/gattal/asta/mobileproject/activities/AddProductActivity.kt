@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import com.gattal.asta.mobileproject.R
 import com.gattal.asta.mobileproject.data.Owner
 import com.gattal.asta.mobileproject.data.Product
-import com.gattal.asta.mobileproject.R
 import kotlinx.android.synthetic.main.activity_add_product.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -73,8 +73,6 @@ class AddProductActivity : AppCompatActivity() {
             checkEditText(ownerEmail)
             checkEditText(ownerName)
             checkEditText(ownerPhone)
-            if (imgOwner == "")
-                checkEditText(ownerPic)
 
             if (imgs.size == 0)
                 checkEditText(productPics)

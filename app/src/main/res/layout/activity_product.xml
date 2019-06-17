@@ -170,10 +170,22 @@
                     app:layout_constraintTop_toTopOf="@id/wilayaDes"
                     app:layout_constraintBottom_toBottomOf="@id/wilayaDes"
                     app:layout_constraintStart_toEndOf="@id/wilayaDes"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/PositionImageButtton"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:id="@+id/ProductwilayaName"/>
+
+            <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintTop_toTopOf="@id/wilayaDes"
+                    app:layout_constraintBottom_toBottomOf="@id/wilayaDes"
+                    app:layout_constraintStart_toEndOf="@id/ProductwilayaName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/PositionImageButtton"
+                    android:contentDescription="@string/call_the_owner"
+                    app:srcCompat="@android:drawable/ic_menu_compass"/>
 
             <ImageButton
                     android:layout_width="20dp"

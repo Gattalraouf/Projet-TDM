@@ -10,8 +10,8 @@ import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
-import com.gattal.asta.mobileproject.data.Product
 import com.gattal.asta.mobileproject.R
+import com.gattal.asta.mobileproject.data.Product
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
 class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
@@ -22,9 +22,6 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
     private var productsFiltered: List<Product>? = productArrayList
     private var itemClickListener: OnItemClickListener? = null
 
-    fun ChangeData(products: List<Product>?){
-        this.products = products
-    }
 
     interface OnItemClickListener {
         fun onItemClick(view: View, obj: Product, position: Int)
@@ -86,8 +83,10 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
                         for (row in productArrayList) {
 
 
-                            if (row.name.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(charString.toLowerCase()) || row.Wilaya.toLowerCase().contains(charString.toLowerCase()))
-                            {
+                            if (row.name.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(
+                                    charString.toLowerCase()
+                                ) || row.Wilaya.toLowerCase().contains(charString.toLowerCase())
+                            ) {
                                 filteredList.add(row)
                             }
                         }
