@@ -22,6 +22,10 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
     private var productsFiltered: List<Product>? = productArrayList
     private var itemClickListener: OnItemClickListener? = null
 
+    fun ChangeData(products: List<Product>?){
+        this.products = products
+    }
+
     interface OnItemClickListener {
         fun onItemClick(view: View, obj: Product, position: Int)
     }

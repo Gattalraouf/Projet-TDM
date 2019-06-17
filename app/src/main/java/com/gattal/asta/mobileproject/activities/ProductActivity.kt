@@ -30,7 +30,7 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var desc: TextView
     private lateinit var owner: TextView
     private lateinit var productName: TextView
-
+    private lateinit var productwilaya: TextView
     private lateinit var emailSend: ImageButton
     private lateinit var call: ImageButton
     private lateinit var product: Product
@@ -57,6 +57,7 @@ class ProductActivity : AppCompatActivity() {
         productName = textView5
         emailSend = sendEmailImageButton
         call = callOwnerImageButtton
+        productwilaya = ProductwilayaName
 
         val intent = intent
         product = intent.getSerializableExtra("product") as Product
@@ -72,7 +73,7 @@ class ProductActivity : AppCompatActivity() {
         owner.text = product.owner.name
         productName.text = product.name
         dateText.text=product.Datedep
-        ProductwilayaName.text= product.Wilaya
+        productwilaya.text= product.Wilaya
 
         Glide.with(this)
             .load(product.owner.pic)

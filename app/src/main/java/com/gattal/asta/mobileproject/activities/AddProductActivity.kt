@@ -113,7 +113,7 @@ class AddProductActivity : AppCompatActivity() {
                             imgs,
                             productName.text.toString(),
                             productDescr.text.toString(),
-                            wilaya.text.toString(),
+                            productWilaya.text.toString(),
                             currentDate
                         )
                 } else if (ownerPic.text != null)
@@ -122,7 +122,7 @@ class AddProductActivity : AppCompatActivity() {
                         productPics.text.toString().split(","),
                         productName.text.toString(),
                         productDescr.text.toString(),
-                        wilaya.text.toString(),
+                        productWilaya.text.toString(),
                         currentDate
                     )
 

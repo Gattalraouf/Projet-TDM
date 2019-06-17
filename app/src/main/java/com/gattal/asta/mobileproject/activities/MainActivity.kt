@@ -3,25 +3,25 @@ package com.gattal.asta.mobileproject.activities
 import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.SearchView
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import com.gattal.asta.mobileproject.R
 import com.gattal.asta.mobileproject.adapters.RecyclerViewAdapter
 import com.gattal.asta.mobileproject.data.Owner
 import com.gattal.asta.mobileproject.data.Product
-import com.gattal.asta.mobileproject.R
 import kotlinx.android.synthetic.main.activity_main.*
-import android.content.pm.PackageManager
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.AdapterView
-import android.util.Log
 
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "Ashley Park Road, YORK", "This large family house..." ,"Alger","13/11/2018"
+                ), imgs, "Ashley Park Road, YORK", "This large family house...", "Alger", "13/11/2018"
             )
         )
 
@@ -78,7 +78,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "28 Gillygate, York", "Large mature garden to the rear extending up to the historic city walls. Pedestrian side access to Gillygate." ,"Alger","13/11/2018"
+                ),
+                imgs,
+                "28 Gillygate, York",
+                "Large mature garden to the rear extending up to the historic city walls. Pedestrian side access to Gillygate.",
+                "Alger",
+                "13/11/2018"
             )
         )
 
@@ -95,7 +100,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "The Residence, YORK", "The Penthouse is the largest apartment on the development measuring approximately 3000 sq ft.","Oran","13/11/2018"
+                ),
+                imgs,
+                "The Residence, YORK",
+                "The Penthouse is the largest apartment on the development measuring approximately 3000 sq ft.",
+                "Oran",
+                "13/11/2018"
             )
         )
 
@@ -113,7 +123,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                     "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
                     "bla.bli@gmail.com",
                     "213698938280"
-                ), imgs, "The Old Fire Station, York", "This exceptional re-development of one of York's most famous sites will deliver 7 exceptional apartments." ,"Oran","13/11/2018"
+                ),
+                imgs,
+                "The Old Fire Station, York",
+                "This exceptional re-development of one of York's most famous sites will deliver 7 exceptional apartments.",
+                "Oran",
+                "13/11/2018"
             )
         )
 
@@ -129,12 +144,12 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         }
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
-
+        recyclerViewAdapter.setOnItemClickListener(this)
         recyclerView.adapter = recyclerViewAdapter
+
         val mLayoutManagerForItems = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerView.layoutManager = mLayoutManagerForItems
         recyclerView.itemAnimator = DefaultItemAnimator()
-        recyclerViewAdapter.setOnItemClickListener(this)
 
         floatingActionButton.setOnClickListener {
             startActivity(Intent(this, AddProductActivity::class.java))
@@ -184,51 +199,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         spinner.adapter = adapter
 
-        recyclerViewAdapter.setOnItemClickListener(this)
-
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 
             override fun onItemSelected(adapterView: AdapterView<*>, view: View, i: Int, l: Long) {
-
-                when(i){
-                    0->{
-                        recyclerViewAdapter = RecyclerViewAdapter(productsCopy)
-                        recyclerView.adapter = recyclerViewAdapter
-                    }
-                    1->{
-                        products.sortWith(Comparator { lhs, rhs ->
-                            when {
-                                lhs.name > rhs.name -> -1
-                                lhs.name == rhs.name -> 0
-                                else -> 1
-                            }
-                        })
-                        recyclerViewAdapter = RecyclerViewAdapter(products)
-                        recyclerView.adapter = recyclerViewAdapter
-                    }
-                    2->{
-                        products.sortWith(Comparator { lhs, rhs ->
-                        when {
-                            lhs.owner.name > rhs.owner.name -> -1
-                            lhs.owner.name == rhs.owner.name -> 0
-                            else -> 1
-                        }
-                    })
-                        recyclerViewAdapter = RecyclerViewAdapter(products)
-                        recyclerView.adapter = recyclerViewAdapter
-                    }
-                    3->{
-                        products.sortWith(Comparator { lhs, rhs ->
-                            when {
-                                lhs.Wilaya > rhs.Wilaya -> -1
-                                lhs.Wilaya == rhs.Wilaya -> 0
-                                else -> 1
-                            }
-                        })
-                        recyclerViewAdapter = RecyclerViewAdapter(products)
-                        recyclerView.adapter = recyclerViewAdapter
-                    }
-                }
+                sortData(i)
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>) {
@@ -248,6 +222,53 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         super.onBackPressed()
     }
 
+
+    fun sortData(i:Int){
+        when (i) {
+            0 -> {
+                recyclerViewAdapter = RecyclerViewAdapter(productsCopy)
+                recyclerViewAdapter.setOnItemClickListener(this)
+                recyclerView.adapter = recyclerViewAdapter
+
+            }
+            1 -> {
+                products.sortWith(Comparator { lhs, rhs ->
+                    when {
+                        lhs.name > rhs.name -> -1
+                        lhs.name == rhs.name -> 0
+                        else -> 1
+                    }
+                })
+                recyclerViewAdapter = RecyclerViewAdapter(products)
+                recyclerViewAdapter.setOnItemClickListener(this)
+                recyclerView.adapter = recyclerViewAdapter
+            }
+            2 -> {
+                products.sortWith(Comparator { lhs, rhs ->
+                    when {
+                        lhs.owner.name > rhs.owner.name -> -1
+                        lhs.owner.name == rhs.owner.name -> 0
+                        else -> 1
+                    }
+                })
+                recyclerViewAdapter = RecyclerViewAdapter(products)
+                recyclerViewAdapter.setOnItemClickListener(this)
+                recyclerView.adapter = recyclerViewAdapter
+            }
+            3 -> {
+                products.sortWith(Comparator { lhs, rhs ->
+                    when {
+                        lhs.Wilaya > rhs.Wilaya -> -1
+                        lhs.Wilaya == rhs.Wilaya -> 0
+                        else -> 1
+                    }
+                })
+                recyclerViewAdapter = RecyclerViewAdapter(products)
+                recyclerViewAdapter.setOnItemClickListener(this)
+                recyclerView.adapter = recyclerViewAdapter
+            }
+        }
+    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         // Handle item selection
@@ -271,26 +292,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         startActivity(intent)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>, grantResults: IntArray
-    ) {
-        when (requestCode) {
-            0 -> {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the phone call
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                }
-                return
-            }
-        }// other 'case' lines to check for other
-        // permissions this app might request
-    }
 
 }
