@@ -4,17 +4,17 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.gattal.asta.mobileproject.R
 import com.gattal.asta.mobileproject.adapters.RecyclerViewAdapter
 import com.gattal.asta.mobileproject.data.Owner
@@ -145,7 +145,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         recyclerViewAdapter.setOnItemClickListener(this)
         recyclerView.adapter = recyclerViewAdapter
 
-        val mLayoutManagerForItems = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val mLayoutManagerForItems = LinearLayoutManager(
+            this,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
         recyclerView.layoutManager = mLayoutManagerForItems
         recyclerView.itemAnimator = DefaultItemAnimator()
 
@@ -290,5 +294,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         startActivity(intent)
     }
 
+    companion object {
+        fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+    }
 
 }

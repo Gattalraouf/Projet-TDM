@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+    <ImageView
+            android:id="@+id/main_view_car"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/space_32"
+            android:layout_marginEnd="@dimen/space_32"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/main_view_car"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@+id/buttonFacebookLogin"
+            android:contentDescription="@string/main_view_car_description"/>
+
+    <Button
+            android:text="@string/facebook_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/google_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
+            android:id="@+id/button_facebook_login_copy"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_car"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:icon="@drawable/ic_facebook"
+            android:paddingStart="@dimen/space_32"
+            android:paddingEnd="@dimen/space_32"
+            app:cornerRadius="@dimen/space_28"/>
+
+    <Button
+            android:text="@string/google_login"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
+            android:id="@+id/google_btn"
+            app:layout_constraintTop_toBottomOf="@+id/buttonFacebookLogin"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:icon="@drawable/ic_google"
+            android:paddingStart="@dimen/space_32"
+            android:paddingEnd="@dimen/space_32"
+            app:cornerRadius="@dimen/space_28"/>
+
+    <com.facebook.login.widget.LoginButton
+            android:visibility="invisible"
+            android:text="@string/facebook_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/google_btn"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
+            android:layout_marginBottom="@dimen/space_16"
+            app:cornerRadius="@dimen/space_28"
+            android:id="@+id/buttonFacebookLogin"
+            app:layout_constraintTop_toBottomOf="@+id/main_view_car"
+            app:layout_constraintHorizontal_bias="0.5"/>
+
+    <ProgressBar
+            android:id="@+id/progressBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="gone"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loading_background"
+            android:background="@color/browser_actions_text_color"
+            android:alpha="0.4"
+            android:visibility="gone">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

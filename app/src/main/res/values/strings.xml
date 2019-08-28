@@ -36,4 +36,14 @@
         <item android:id="@+id/owner_sort">Owner</item>
         <item android:id="@+id/wilaya_sort">Wilaya</item>
     </string-array>
+
+
+    <!-- Login Activity Strings  -->
+    <string name="google_login">Login avec google</string>
+    <string name="facebook_login">Login avec facebook</string>
+    <string name="main_view_car_description">App logo</string>
+
+    <string name="facebook_app_id">529056181197762</string>
+    <string name="fb_login_protocol_scheme">fb529056181197762</string>
+
 </resources>
