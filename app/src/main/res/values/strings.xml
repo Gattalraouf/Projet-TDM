@@ -32,9 +32,9 @@
 
     <string-array name="spinner_sort">
         <item android:id="@+id/no_sort"></item>
-        <item android:id="@+id/name_sort">Name</item>
+        <item android:id="@+id/name_sort">Category</item>
         <item android:id="@+id/owner_sort">Owner</item>
-        <item android:id="@+id/wilaya_sort">Wilaya</item>
+        <item android:id="@+id/wilaya_sort">Localisation</item>
     </string-array>
 
 
@@ -45,5 +45,6 @@
 
     <string name="facebook_app_id">529056181197762</string>
     <string name="fb_login_protocol_scheme">fb529056181197762</string>
+    <string name="address">Address: </string>
 
 </resources>

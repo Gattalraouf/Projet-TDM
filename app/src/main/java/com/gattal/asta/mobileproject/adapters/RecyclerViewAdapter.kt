@@ -1,7 +1,5 @@
 package com.gattal.asta.mobileproject.adapters
 
-import androidx.cardview.widget.CardView
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +7,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gattal.asta.mobileproject.R
 import com.gattal.asta.mobileproject.data.Product
@@ -44,9 +44,9 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
 
             val product = this.productsFiltered!![position]
 
-            viewHolder.productName.text = product.name
-            viewHolder.productowner.text = product.owner.name
-            viewHolder.wilaya.text = product.Wilaya
+            viewHolder.productName.text = product.type
+            viewHolder.productowner.text = product.localisation
+            viewHolder.wilaya.text = product.price
 
             Glide.with(viewHolder.itemImageView.context)
                 .load(product.imgs[0])
@@ -83,9 +83,9 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
                         for (row in productArrayList) {
 
 
-                            if (row.name.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(
+                            if (row.localisation.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(
                                     charString.toLowerCase()
-                                ) || row.Wilaya.toLowerCase().contains(charString.toLowerCase())
+                                ) || row.category.toLowerCase().contains(charString.toLowerCase())
                             ) {
                                 filteredList.add(row)
                             }

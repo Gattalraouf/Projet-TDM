@@ -54,12 +54,15 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         products.add(
             Product(
+                "0", "Sale", "House", "Alger", "200",
                 Owner(
-                    "Jane Doe",
-                    "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
+                    "Jane",
+                    "Doe",
+                    " ezjgbfjsdbkfjqskj ",
                     "bla.bli@gmail.com",
+                    "213698938280",
                     "213698938280"
-                ), imgs, "Ashley Park Road, YORK", "This large family house...", "Alger", "13/11/2018"
+                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
             )
         )
 
@@ -71,17 +74,15 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         products.add(
             Product(
+                "1", "Sale", "House", "Alger", "200",
                 Owner(
-                    "Jane Doe",
-                    "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
+                    "Jane",
+                    "Doe",
+                    "",
                     "bla.bli@gmail.com",
+                    "213698938280",
                     "213698938280"
-                ),
-                imgs,
-                "28 Gillygate, York",
-                "Large mature garden to the rear extending up to the historic city walls. Pedestrian side access to Gillygate.",
-                "Alger",
-                "13/11/2018"
+                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
             )
         )
 
@@ -93,17 +94,15 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         products.add(
             Product(
+                "2", "Sale", "House", "Alger", "200",
                 Owner(
-                    "Jane Doe",
-                    "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
+                    "Jane",
+                    "Doe",
+                    "",
                     "bla.bli@gmail.com",
+                    "213698938280",
                     "213698938280"
-                ),
-                imgs,
-                "The Residence, YORK",
-                "The Penthouse is the largest apartment on the development measuring approximately 3000 sq ft.",
-                "Oran",
-                "13/11/2018"
+                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
             )
         )
 
@@ -113,33 +112,21 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_04_0000_max_656x437.jpg")
         imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_09_0000_max_656x437.jpg")
 
-
         products.add(
             Product(
+                "3", "Sale", "House", "Alger", "200",
                 Owner(
-                    "Jane Doe",
-                    "https://www.whatsappprofiledpimages.com/wp-content/uploads/2018/11/profile-yopic-download-43-300x222.gif",
+                    "Jane",
+                    "Doe",
+                    "",
                     "bla.bli@gmail.com",
+                    "213698938280",
                     "213698938280"
-                ),
-                imgs,
-                "The Old Fire Station, York",
-                "This exceptional re-development of one of York's most famous sites will deliver 7 exceptional apartments.",
-                "Oran",
-                "13/11/2018"
+                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
             )
         )
 
-        productsCopy = products.toMutableList()
 
-
-        val intent = intent
-        val product: Product
-        if (intent.getSerializableExtra("newProduct") != null) {
-            product = intent.getSerializableExtra("newProduct") as Product
-            products.add(product)
-            productsCopy.add(product)
-        }
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
         recyclerViewAdapter.setOnItemClickListener(this)
@@ -147,16 +134,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         val mLayoutManagerForItems = LinearLayoutManager(
             this,
-            LinearLayoutManager.VERTICAL,
+            RecyclerView.VERTICAL,
             false
         )
         recyclerView.layoutManager = mLayoutManagerForItems
         recyclerView.itemAnimator = DefaultItemAnimator()
-
-        floatingActionButton.setOnClickListener {
-            startActivity(Intent(this, AddProductActivity::class.java))
-        }
-
 
     }
 
@@ -236,8 +218,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             1 -> {
                 products.sortWith(Comparator { lhs, rhs ->
                     when {
-                        lhs.name > rhs.name -> -1
-                        lhs.name == rhs.name -> 0
+                        lhs.category > rhs.category -> -1
+                        lhs.category == rhs.category -> 0
                         else -> 1
                     }
                 })
@@ -260,8 +242,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             3 -> {
                 products.sortWith(Comparator { lhs, rhs ->
                     when {
-                        lhs.Wilaya > rhs.Wilaya -> -1
-                        lhs.Wilaya == rhs.Wilaya -> 0
+                        lhs.localisation > rhs.localisation -> -1
+                        lhs.localisation == rhs.localisation -> 0
                         else -> 1
                     }
                 })
