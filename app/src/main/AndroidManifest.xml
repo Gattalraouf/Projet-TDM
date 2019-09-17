@@ -55,6 +55,15 @@
         <meta-data android:name="com.facebook.sdk.ApplicationId"
                    android:value="@string/facebook_app_id"/>
 
+        <receiver
+                android:name=".AlarmReceiver"
+                android:enabled="true" />
+
+        <service
+                android:name=".NotificationService"
+                android:enabled="true" />
+
+
     </application>
 
 </manifest>
