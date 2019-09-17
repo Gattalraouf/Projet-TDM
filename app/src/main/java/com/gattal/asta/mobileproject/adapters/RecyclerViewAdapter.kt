@@ -46,7 +46,6 @@ class RecyclerViewAdapter(private val productArrayList: List<AdEntity>?) :
         if (viewHolder is ItemViewHolder) {
 
 
-
             val product = this.productsFiltered!![position]
 
             viewHolder.productName.text = product.title

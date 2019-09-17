@@ -74,30 +74,34 @@ class LoginActivity : AppCompatActivity() {
 
         buttonFacebookLogin.setPermissions("email", "public_profile")
 
-        buttonFacebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+        buttonFacebookLogin.registerCallback(
+            callbackManager,
+            object : FacebookCallback<LoginResult> {
 
-            override fun onSuccess(loginResult: LoginResult) {
-                Log.d("", "facebook:onSuccess:$loginResult")
+                override fun onSuccess(loginResult: LoginResult) {
+                    Log.d("", "facebook:onSuccess:$loginResult")
 
-                handleFacebookAccessToken(loginResult.accessToken)
-                graphLoginRequest(loginResult.accessToken)
+                    handleFacebookAccessToken(loginResult.accessToken)
+                    graphLoginRequest(loginResult.accessToken)
 
-            }
+                }
 
-            override fun onCancel() {
-                progressBar.visibility = View.GONE
-                loading_background.visibility = View.GONE
-                Toast.makeText(this@LoginActivity, "facebook Login annulé", Toast.LENGTH_SHORT).show()
+                override fun onCancel() {
+                    progressBar.visibility = View.GONE
+                    loading_background.visibility = View.GONE
+                    Toast.makeText(this@LoginActivity, "facebook Login annulé", Toast.LENGTH_SHORT)
+                        .show()
 
-            }
+                }
 
-            override fun onError(error: FacebookException) {
-                progressBar.visibility = View.GONE
-                loading_background.visibility = View.GONE
-                Log.e("login", error.message)
-                Toast.makeText(this@LoginActivity, "facebook Login erreur!", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onError(error: FacebookException) {
+                    progressBar.visibility = View.GONE
+                    loading_background.visibility = View.GONE
+                    Log.e("login", error.message)
+                    Toast.makeText(this@LoginActivity, "facebook Login erreur!", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            })
 
     }
 

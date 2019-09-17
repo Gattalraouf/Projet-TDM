@@ -12,7 +12,7 @@ interface EntityDao {
     fun getAd(id: String): LiveData<AdEntity>
 
     @Query("SELECT * FROM ad_table")
-    fun getAds() : LiveData<List<AdEntity>>
+    fun getAds(): LiveData<List<AdEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(realEstateAd: AdEntity): Long

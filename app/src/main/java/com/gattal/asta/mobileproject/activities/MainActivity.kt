@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     private lateinit var productsCopy: MutableList<AdEntity>
     private lateinit var imgs: MutableList<String>
     private lateinit var searchView: SearchView
-    var ListAds: MutableList<AdEntity> = ArrayList()
-    lateinit var ListItems: MutableList<RssItem>
+    var listAds: MutableList<AdEntity> = ArrayList()
+    lateinit var listItems: MutableList<RssItem>
 
     private val mNotificationTime = Calendar.getInstance().timeInMillis + 5000
     private var mNotified = false
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         imgs = ArrayList()
 
-        ListItems = getRealAds()
+        listItems = getRealAds()
 
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
@@ -230,10 +230,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
     // Get RSS FeedS Methods
 
-    fun getAds(baseUrl: String, url: String): MutableList<RssItem> {
-        val ListAds = mutableListOf<RssItem>()
-        getRssFeed(baseUrl, url, ListAds)
-        return ListAds
+    private fun getAds(baseUrl: String, url: String): MutableList<RssItem> {
+        val listAds = mutableListOf<RssItem>()
+        getRssFeed(baseUrl, url, listAds)
+        return listAds
 
     }
 
@@ -242,22 +242,22 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         url: String,
         output: MutableList<RssItem>
     ): List<RssItem> {
-        var Data = emptyList<RssItem>()
+        var data = emptyList<RssItem>()
 
-        var retrofit = Retrofit.Builder()
+        val retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(RssConverterFactory.create())
             .build()
-        var service = retrofit.create(FeedAPI::class.java)
+        val service = retrofit.create(FeedAPI::class.java)
         val response = service.getRss(url)
         response.enqueue(object : Callback<RssFeed> {
             override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
-                if (response.isSuccessful()) {
-                    Data = response.body()!!.items!!
-                    output.addAll(Data)
-                    ListItems = Data as MutableList
+                if (response.isSuccessful) {
+                    data = response.body()!!.items!!
+                    output.addAll(data)
+                    listItems = data as MutableList
 
-                    for (item: RssItem in ListItems) {
+                    for (item: RssItem in listItems) {
                         Log.d("data", item.toString())
 
                         imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
@@ -278,11 +278,11 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                                 ad.wilaya = item.title!!.substringAfter("Wilaya de")
                             }
 
-                        ListAds.add(ad)
+                        listAds.add(ad)
 
                     }
 
-                    recyclerView.adapter = RecyclerViewAdapter(ListAds)
+                    recyclerView.adapter = RecyclerViewAdapter(listAds)
                     (recyclerView.adapter as RecyclerViewAdapter).setOnItemClickListener(this@MainActivity)
 
                     Log.d("data ----------------", products.toString())
@@ -294,14 +294,13 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             }
         })
 
-        return Data
+        return data
     }
 
 
-    fun getRealAds(): MutableList<RssItem> {
-        val list = getAds("https://www.algerimmo.com/rss/", "?category=&type=0&location=")
+    private fun getRealAds(): MutableList<RssItem> {
 
-        return list
+        return getAds("https://www.algerimmo.com/rss/", "?category=&type=0&location=")
     }
 
 }

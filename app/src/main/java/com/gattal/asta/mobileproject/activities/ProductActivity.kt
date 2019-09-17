@@ -6,7 +6,6 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.telephony.SmsManager
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
