@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.telephony.SmsManager
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -24,6 +25,7 @@ class ProductActivity : AppCompatActivity() {
 
     private lateinit var email: TextView
     private lateinit var number: TextView
+    private lateinit var number2: TextView
     private lateinit var categorya: TextView
     private lateinit var desc: TextView
     private lateinit var owner: TextView
@@ -34,10 +36,14 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var pricea: TextView
     private lateinit var emailSend: ImageButton
     private lateinit var call: ImageButton
+    private lateinit var call2: ImageButton
     private lateinit var position: ImageButton
     private lateinit var position2: ImageButton
     private lateinit var product: AdEntity
     private lateinit var video: VideoView
+
+    private lateinit var sms: ImageButton
+    private lateinit var mail: ImageButton
 
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +75,12 @@ class ProductActivity : AppCompatActivity() {
         position2 = adress_button
         video = videoView
 
+        number2 = PhoneNumber2
+        call2 = callOwnerImageButtton2
+        sms = share_sms
+        mail = share_email
+
+
         val intent = intent
         product = intent.getSerializableExtra("annonce") as AdEntity
 
@@ -79,7 +91,7 @@ class ProductActivity : AppCompatActivity() {
 
         email.text = product.ownerMail
         number.text = product.ownerPhone
-        //  number2.text = product.owner.phone2
+        //number2.text = product.owner.phone2
         categorya.text = product.category
         addressa.text = product.ownerAddress
         surfacea.text = product.area
@@ -102,6 +114,29 @@ class ProductActivity : AppCompatActivity() {
 
             onCallBtnClick("tel:${product.ownerPhone}")
 
+        }
+
+        call2.setOnClickListener {
+
+            onCallBtnClick("tel:${product.ownerPhone}")
+
+        }
+
+        sms.setOnClickListener {
+            val uri = Uri.parse("smsto:")
+            val intent = Intent(Intent.ACTION_SENDTO, uri)
+            intent.putExtra("sms_body", product.link)
+            startActivity(intent)
+        }
+
+        mail.setOnClickListener {
+
+            val subject = "Shared Offer link"
+            val chooserTitle = "Offer Link"
+            val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:"))
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject)
+            emailIntent.putExtra(Intent.EXTRA_TEXT, product.link)
+            startActivity(Intent.createChooser(emailIntent, chooserTitle))
         }
 
 
