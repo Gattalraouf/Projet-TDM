@@ -39,6 +39,7 @@
                     android:textStyle="bold"
                     android:id="@+id/textView5"/>
 
+
             <TextView
                     tools:text="Category"
                     android:layout_width="0dp"
@@ -215,33 +216,14 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:id="@+id/PhoneNumber"/>
-            <TextView
-                    android:text="@string/phone_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/phone"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:id="@+id/phone2"/>
 
-            <TextView
-                    tools:text="+213698938280"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="@id/phone2"
-                    app:layout_constraintBottom_toBottomOf="@id/phone2"
-                    app:layout_constraintStart_toEndOf="@id/phone2"
-                    app:layout_constraintEnd_toStartOf="@id/callOwnerImageButtton2"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:id="@+id/PhoneNumber2"/>
+
             <TextView
                     android:text="@string/address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/phone2"
+                    app:layout_constraintTop_toBottomOf="@id/phone"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
                     android:id="@+id/address"/>
@@ -258,6 +240,17 @@
                     android:layout_marginEnd="16dp"
                     android:id="@+id/owner_adress"/>
 
+            <ImageButton
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    app:layout_constraintTop_toTopOf="@id/textView5"
+                    app:layout_constraintBottom_toBottomOf="@id/textView5"
+                    app:layout_constraintStart_toEndOf="@id/textView5"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginEnd="16dp"
+                    android:id="@+id/favoris_button"
+                    android:contentDescription="@string/add_to_favoris"
+                    app:srcCompat="@drawable/ic_star_black_24dp"/>
             <ImageButton
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -282,24 +275,13 @@
                     android:id="@+id/callOwnerImageButtton"
                     android:contentDescription="@string/call_the_owner"/>
 
-            <ImageButton
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    app:srcCompat="@drawable/ic_telephone"
-                    app:layout_constraintTop_toTopOf="@id/PhoneNumber2"
-                    app:layout_constraintBottom_toBottomOf="@id/PhoneNumber2"
-                    app:layout_constraintStart_toEndOf="@id/PhoneNumber2"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginEnd="16dp"
-                    android:id="@+id/callOwnerImageButtton2"
-                    android:contentDescription="@string/call_the_owner"/>
 
             <androidx.constraintlayout.widget.Barrier
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/barrier3"
                     app:barrierDirection="bottom"
-                    app:constraint_referenced_ids="callOwnerImageButtton2, owner_adress, address"/>
+                    app:constraint_referenced_ids="callOwnerImageButtton, owner_adress, address"/>
 
             <VideoView
                     android:layout_width="match_parent"

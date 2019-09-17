@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
         fb = 0
         callbackManager = CallbackManager.Factory.create()
 
-        buttonFacebookLogin.setReadPermissions("email", "public_profile")
+        buttonFacebookLogin.setPermissions("email", "public_profile")
 
         buttonFacebookLogin.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
 

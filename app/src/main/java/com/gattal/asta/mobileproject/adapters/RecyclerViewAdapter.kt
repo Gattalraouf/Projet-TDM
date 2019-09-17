@@ -11,20 +11,20 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.gattal.asta.mobileproject.R
-import com.gattal.asta.mobileproject.data.Product
+import com.gattal.asta.mobileproject.modeldata.AdEntity
 import kotlinx.android.synthetic.main.recycler_view_item.view.*
 
-class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
+class RecyclerViewAdapter(private val productArrayList: List<AdEntity>?) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>(),
     Filterable {
 
-    private var products: List<Product>? = productArrayList
-    private var productsFiltered: List<Product>? = productArrayList
+    private var products: List<AdEntity>? = productArrayList
+    private var productsFiltered: List<AdEntity>? = productArrayList
     private var itemClickListener: OnItemClickListener? = null
 
 
     interface OnItemClickListener {
-        fun onItemClick(view: View, obj: Product, position: Int)
+        fun onItemClick(view: View, obj: AdEntity, position: Int)
     }
 
     fun setOnItemClickListener(mItemClickListener: OnItemClickListener) {
@@ -44,9 +44,9 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
 
             val product = this.productsFiltered!![position]
 
-            viewHolder.productName.text = product.type
-            viewHolder.productowner.text = product.localisation
-            viewHolder.wilaya.text = product.price
+            viewHolder.productName.text = product.title
+            viewHolder.productowner.text = product.ownerName
+            viewHolder.wilaya.text = product.wilaya
 
             Glide.with(viewHolder.itemImageView.context)
                 .load(product.imgs[0])
@@ -78,12 +78,12 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
                 if (charString.isEmpty()) {
                     productsFiltered = products
                 } else {
-                    val filteredList = ArrayList<Product>()
+                    val filteredList = ArrayList<AdEntity>()
                     if (productArrayList != null) {
                         for (row in productArrayList) {
 
 
-                            if (row.localisation.toLowerCase().contains(charString.toLowerCase()) || row.owner.name.toLowerCase().contains(
+                            if (row.wilaya.toLowerCase().contains(charString.toLowerCase()) || row.ownerName.toLowerCase().contains(
                                     charString.toLowerCase()
                                 ) || row.category.toLowerCase().contains(charString.toLowerCase())
                             ) {
@@ -101,7 +101,7 @@ class RecyclerViewAdapter(private val productArrayList: List<Product>?) :
             }
 
             override fun publishResults(charSequence: CharSequence, filterResults: FilterResults) {
-                productsFiltered = filterResults.values as ArrayList<Product>
+                productsFiltered = filterResults.values as ArrayList<AdEntity>
                 notifyDataSetChanged()
             }
         }

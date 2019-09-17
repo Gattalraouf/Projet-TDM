@@ -4,6 +4,7 @@ import android.app.SearchManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -17,19 +18,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gattal.asta.mobileproject.R
 import com.gattal.asta.mobileproject.adapters.RecyclerViewAdapter
-import com.gattal.asta.mobileproject.data.Owner
-import com.gattal.asta.mobileproject.data.Product
+import com.gattal.asta.mobileproject.data.FeedAPI
+import com.gattal.asta.mobileproject.modeldata.AdEntity
 import kotlinx.android.synthetic.main.activity_main.*
+import me.toptas.rssconverter.RssConverterFactory
+import me.toptas.rssconverter.RssFeed
+import me.toptas.rssconverter.RssItem
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import retrofit2.Retrofit
+import java.io.Serializable
 
 
 class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var recyclerViewAdapter: RecyclerViewAdapter
-    private lateinit var products: MutableList<Product>
-    private lateinit var productsCopy: MutableList<Product>
+    private lateinit var products: MutableList<AdEntity>
+    private lateinit var productsCopy: MutableList<AdEntity>
     private lateinit var imgs: MutableList<String>
     private lateinit var searchView: SearchView
+    lateinit var ListAds: MutableList<AdEntity>
+    lateinit var ListItems: MutableList<RssItem>
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,86 +61,32 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
         productsCopy = ArrayList()
 
         imgs = ArrayList()
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_02_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_07_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_08_0000_max_656x437.jpg")
 
-        products.add(
-            Product(
-                "0", "Sale", "House", "Alger", "200",
-                Owner(
-                    "Jane",
-                    "Doe",
-                    " ezjgbfjsdbkfjqskj ",
-                    "bla.bli@gmail.com",
-                    "213698938280",
-                    "213698938280"
-                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
-            )
-        )
+        ListItems = getRealAds()
 
-        imgs = ArrayList()
-        imgs.add("https://media.rightmove.co.uk/dir/77k/76006/82194167/76006_76006_205989_IMG_01_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/77k/76006/82194167/76006_76006_205989_IMG_02_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/77k/76006/82194167/76006_76006_205989_IMG_03_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/77k/76006/82194167/76006_76006_205989_IMG_08_0000_max_656x437.jpg")
+        for ( item: RssItem in ListItems)
+        {
+            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
+            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_02_0000_max_656x437.jpg")
+            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_07_0000_max_656x437.jpg")
+            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_08_0000_max_656x437.jpg")
 
-        products.add(
-            Product(
-                "1", "Sale", "House", "Alger", "200",
-                Owner(
-                    "Jane",
-                    "Doe",
-                    "",
-                    "bla.bli@gmail.com",
-                    "213698938280",
-                    "213698938280"
-                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
-            )
-        )
+            val ad = AdEntity()
 
-        imgs = ArrayList()
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82374362/7730_28835018_IMG_01_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82374362/7730_28835018_IMG_06_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82374362/7730_28835018_IMG_07_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82374362/7730_28835018_IMG_12_0000_max_656x437.jpg")
+            ad.title=item.title!!
+            ad.descript=item.description!!
+            ad.link=item.link!!
+            ad.date=item.publishDate!!
+            if (item.image!=null)
+                if ( item.title!!.contains("Wilaya d'")){
+                    ad.wilaya=item.title!!.substringAfter("Wilaya d'")}
+                else{
+                    ad.wilaya=item.title!!.substringAfter("Wilaya de")
+                }
 
-        products.add(
-            Product(
-                "2", "Sale", "House", "Alger", "200",
-                Owner(
-                    "Jane",
-                    "Doe",
-                    "",
-                    "bla.bli@gmail.com",
-                    "213698938280",
-                    "213698938280"
-                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
-            )
-        )
+            ListAds.add(ad)
 
-        imgs = ArrayList()
-        imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_01_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_03_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_04_0000_max_656x437.jpg")
-        imgs.add("https://media.rightmove.co.uk/dir/54k/53812/81188750/53812_YOR190034_IMG_09_0000_max_656x437.jpg")
-
-        products.add(
-            Product(
-                "3", "Sale", "House", "Alger", "200",
-                Owner(
-                    "Jane",
-                    "Doe",
-                    "",
-                    "bla.bli@gmail.com",
-                    "213698938280",
-                    "213698938280"
-                ), imgs, imgs, "Ashley Park Road, YORK", "This large family house..."
-            )
-        )
-
-
+        }
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
         recyclerViewAdapter.setOnItemClickListener(this)
@@ -230,8 +190,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             2 -> {
                 products.sortWith(Comparator { lhs, rhs ->
                     when {
-                        lhs.owner.name > rhs.owner.name -> -1
-                        lhs.owner.name == rhs.owner.name -> 0
+                        lhs.ownerName > rhs.ownerName -> -1
+                        lhs.ownerName == rhs.ownerName -> 0
                         else -> 1
                     }
                 })
@@ -242,8 +202,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
             3 -> {
                 products.sortWith(Comparator { lhs, rhs ->
                     when {
-                        lhs.localisation > rhs.localisation -> -1
-                        lhs.localisation == rhs.localisation -> 0
+                        lhs.wilaya > rhs.wilaya -> -1
+                        lhs.wilaya== rhs.wilaya -> 0
                         else -> 1
                     }
                 })
@@ -270,16 +230,63 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     }
 
 
-    override fun onItemClick(view: View, obj: Product, position: Int) {
-        val intent = Intent(this, ProductActivity::class.java)
-        intent.putExtra("product", obj)
+    override fun onItemClick(view: View, obj: AdEntity, position: Int) {
+          val intent = Intent(this, ProductActivity::class.java)
+        intent.putExtra("annonce", obj as Serializable)
         startActivity(intent)
     }
+
+
 
     companion object {
         fun getLaunchIntent(from: Context) = Intent(from, MainActivity::class.java).apply {
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         }
+    }
+
+
+
+
+
+    // Get RSS FeedS Methods
+
+    fun getAds(baseUrl:String,url:String): MutableList<RssItem>
+    {
+        val ListAds = mutableListOf<RssItem>()
+        getRssFeed(baseUrl,url,ListAds)
+        return ListAds
+
+    }
+
+    private fun getRssFeed(baseUrl:String,url:String,output :MutableList<RssItem>):List<RssItem>
+    {
+        var Data =emptyList<RssItem>()
+
+        var retrofit = Retrofit.Builder()
+            .baseUrl(baseUrl)
+            .addConverterFactory(RssConverterFactory.create())
+            .build()
+        var service = retrofit.create(FeedAPI::class.java)
+        val  response=service.getRss(url)
+        response.enqueue(object : Callback<RssFeed> {
+            override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
+                if (response.isSuccessful())
+                { Data=response.body()!!.items!!
+                    output.addAll(Data)
+                }}
+            override fun onFailure(call: Call<RssFeed>, t: Throwable) {
+                Log.i("error",t.message)
+            }
+        })
+
+        return Data
+    }
+
+
+    fun getRealAds(): MutableList<RssItem> {
+        val list = getAds("https://www.algerimmo.com/rss/", "?category=&type=0&location=")
+
+        return list
     }
 
 }

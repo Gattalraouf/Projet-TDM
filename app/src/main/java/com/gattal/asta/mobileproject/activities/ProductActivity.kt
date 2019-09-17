@@ -16,7 +16,7 @@ import androidx.core.app.ActivityCompat
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.models.SlideModel
 import com.gattal.asta.mobileproject.R
-import com.gattal.asta.mobileproject.data.Product
+import com.gattal.asta.mobileproject.modeldata.AdEntity
 import kotlinx.android.synthetic.main.activity_product.*
 
 
@@ -24,7 +24,6 @@ class ProductActivity : AppCompatActivity() {
 
     private lateinit var email: TextView
     private lateinit var number: TextView
-    private lateinit var number2: TextView
     private lateinit var categorya: TextView
     private lateinit var desc: TextView
     private lateinit var owner: TextView
@@ -35,10 +34,9 @@ class ProductActivity : AppCompatActivity() {
     private lateinit var pricea: TextView
     private lateinit var emailSend: ImageButton
     private lateinit var call: ImageButton
-    private lateinit var call2: ImageButton
     private lateinit var position: ImageButton
     private lateinit var position2: ImageButton
-    private lateinit var product: Product
+    private lateinit var product: AdEntity
     private lateinit var video: VideoView
 
     @RequiresApi(Build.VERSION_CODES.M)
@@ -57,7 +55,6 @@ class ProductActivity : AppCompatActivity() {
 
         email = emailCorps
         number = PhoneNumber
-        number2 = PhoneNumber2
         categorya = category
         addressa = owner_adress
         surfacea = surface
@@ -70,31 +67,30 @@ class ProductActivity : AppCompatActivity() {
         productwilaya = ProductwilayaName
         position = PositionImageButtton
         position2 = adress_button
-        call2 = callOwnerImageButtton2
         video = videoView
 
         val intent = intent
-        product = intent.getSerializableExtra("product") as Product
+        product = intent.getSerializableExtra("Annonce") as AdEntity
 
         for (i in product.imgs) {
             imageList.add(SlideModel(i))
         }
         imageSlider.setImageList(imageList)
 
-        email.text = product.owner.email
-        number.text = product.owner.phone1
-        number2.text = product.owner.phone2
-        categorya.text = "category: " + product.category
-        addressa.text = product.owner.address
-        surfacea.text = "surface: "+product.surface
-        pricea.text = "Price: " + product.price + " DA"
-        desc.text = product.descr
-        owner.text = product.owner.name + " " + product.owner.lastName
+        email.text = product.ownerMail
+        number.text = product.ownerPhone
+      //  number2.text = product.owner.phone2
+        categorya.text = product.category
+        addressa.text = product.ownerAddress
+        surfacea.text = product.area
+        pricea.text = product.price + " DA"
+        desc.text = product.descript
+        owner.text = product.ownerName
         type.text = product.type
-        productwilaya.text = product.localisation
+        productwilaya.text = product.wilaya
 
         emailSend.setOnClickListener {
-            val email1 = product.owner.email
+            val email1 = product.ownerMail
             val subject = "Contact about ${product.type}"
             val chooserTitle = "Send Email"
             val emailIntent = Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:$email1"))
@@ -104,15 +100,10 @@ class ProductActivity : AppCompatActivity() {
 
         call.setOnClickListener {
 
-            onCallBtnClick("tel:${product.owner.phone1}")
+            onCallBtnClick("tel:${product.ownerPhone}")
 
         }
 
-        call2.setOnClickListener {
-
-            onCallBtnClick("tel:${product.owner.phone2}")
-
-        }
 
         position.setOnClickListener {
             val gmmIntentUri = Uri.parse("geo:0,0?q=${productwilaya.text}")
@@ -162,7 +153,7 @@ class ProductActivity : AppCompatActivity() {
             9 -> permissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED
         }
         if (permissionGranted) {
-            phoneCall("tel:${product.owner.phone1}")
+            phoneCall("tel:${product.ownerPhone}")
         } else {
             Toast.makeText(this, "You don't assign permission.", Toast.LENGTH_SHORT).show()
         }

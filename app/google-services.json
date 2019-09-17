@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "496090088240-mrbfs7baaet0msnol8t32q7bfkl16111.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.gattal.asta.mobileproject",
+            "certificate_hash": "0ed9dda7a4467a89b40e1f73c59bc1716a929396"
+          }
+        },
+        {
           "client_id": "496090088240-8k6suerbt4ncein7rv5ko0crs8433e46.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

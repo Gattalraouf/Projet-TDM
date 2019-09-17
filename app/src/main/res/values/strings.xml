@@ -24,6 +24,7 @@
     <string name="email">Email:</string>
     <string name="phone_number">Phone Number:</string>
     <string name="call_the_owner">Call the owner</string>
+    <string name="add_to_favoris">Add to favoris</string>
     <string name="email_the_owner">Email the owner</string>
     <string name="owner_profile_picture">Owner PP:</string>
     <string name="product_picture_image">Product picture</string>
