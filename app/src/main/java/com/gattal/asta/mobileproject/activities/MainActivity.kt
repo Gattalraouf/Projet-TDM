@@ -39,11 +39,8 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     private lateinit var productsCopy: MutableList<AdEntity>
     private lateinit var imgs: MutableList<String>
     private lateinit var searchView: SearchView
-    lateinit var ListAds: MutableList<AdEntity>
+    var ListAds: MutableList<AdEntity> = ArrayList()
     lateinit var ListItems: MutableList<RssItem>
-
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -64,29 +61,6 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
         ListItems = getRealAds()
 
-        for ( item: RssItem in ListItems)
-        {
-            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
-            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_02_0000_max_656x437.jpg")
-            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_07_0000_max_656x437.jpg")
-            imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_08_0000_max_656x437.jpg")
-
-            val ad = AdEntity()
-
-            ad.title=item.title!!
-            ad.descript=item.description!!
-            ad.link=item.link!!
-            ad.date=item.publishDate!!
-            if (item.image!=null)
-                if ( item.title!!.contains("Wilaya d'")){
-                    ad.wilaya=item.title!!.substringAfter("Wilaya d'")}
-                else{
-                    ad.wilaya=item.title!!.substringAfter("Wilaya de")
-                }
-
-            ListAds.add(ad)
-
-        }
 
         recyclerViewAdapter = RecyclerViewAdapter(products)
         recyclerViewAdapter.setOnItemClickListener(this)
@@ -203,7 +177,7 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
                 products.sortWith(Comparator { lhs, rhs ->
                     when {
                         lhs.wilaya > rhs.wilaya -> -1
-                        lhs.wilaya== rhs.wilaya -> 0
+                        lhs.wilaya == rhs.wilaya -> 0
                         else -> 1
                     }
                 })
@@ -231,11 +205,10 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
 
 
     override fun onItemClick(view: View, obj: AdEntity, position: Int) {
-          val intent = Intent(this, ProductActivity::class.java)
-        intent.putExtra("annonce", obj as Serializable)
+        val intent = Intent(this, ProductActivity::class.java)
+        intent.putExtra("annonce", obj)
         startActivity(intent)
     }
-
 
 
     companion object {
@@ -245,37 +218,69 @@ class MainActivity : AppCompatActivity(), RecyclerViewAdapter.OnItemClickListene
     }
 
 
-
-
-
     // Get RSS FeedS Methods
 
-    fun getAds(baseUrl:String,url:String): MutableList<RssItem>
-    {
+    fun getAds(baseUrl: String, url: String): MutableList<RssItem> {
         val ListAds = mutableListOf<RssItem>()
-        getRssFeed(baseUrl,url,ListAds)
+        getRssFeed(baseUrl, url, ListAds)
         return ListAds
 
     }
 
-    private fun getRssFeed(baseUrl:String,url:String,output :MutableList<RssItem>):List<RssItem>
-    {
-        var Data =emptyList<RssItem>()
+    private fun getRssFeed(
+        baseUrl: String,
+        url: String,
+        output: MutableList<RssItem>
+    ): List<RssItem> {
+        var Data = emptyList<RssItem>()
 
         var retrofit = Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(RssConverterFactory.create())
             .build()
         var service = retrofit.create(FeedAPI::class.java)
-        val  response=service.getRss(url)
+        val response = service.getRss(url)
         response.enqueue(object : Callback<RssFeed> {
             override fun onResponse(call: Call<RssFeed>, response: Response<RssFeed>) {
-                if (response.isSuccessful())
-                { Data=response.body()!!.items!!
+                if (response.isSuccessful()) {
+                    Data = response.body()!!.items!!
                     output.addAll(Data)
-                }}
+                    ListItems = Data as MutableList
+
+                    for (item: RssItem in ListItems) {
+                        Log.d("data", item.toString())
+
+                        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_01_0000_max_656x437.jpg")
+                        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_02_0000_max_656x437.jpg")
+                        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_07_0000_max_656x437.jpg")
+                        imgs.add("https://media.rightmove.co.uk/dir/8k/7730/82406102/7730_28837932_IMG_08_0000_max_656x437.jpg")
+
+                        val ad = AdEntity()
+
+                        ad.title = item.title!!
+                        ad.descript = item.description!!
+                        ad.link = item.link!!
+                        ad.date = item.publishDate!!
+                        if (item.image != null)
+                            if (item.title!!.contains("Wilaya d'")) {
+                                ad.wilaya = item.title!!.substringAfter("Wilaya d'")
+                            } else {
+                                ad.wilaya = item.title!!.substringAfter("Wilaya de")
+                            }
+
+                        ListAds.add(ad)
+
+                    }
+
+                    recyclerView.adapter = RecyclerViewAdapter(ListAds)
+                    (recyclerView.adapter as RecyclerViewAdapter).setOnItemClickListener(this@MainActivity)
+
+                    Log.d("data ----------------", products.toString())
+                }
+            }
+
             override fun onFailure(call: Call<RssFeed>, t: Throwable) {
-                Log.i("error",t.message)
+                Log.i("error", t.message)
             }
         })
 

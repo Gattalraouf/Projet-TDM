@@ -1,5 +1,6 @@
 package com.gattal.asta.mobileproject.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,12 +36,16 @@ class RecyclerViewAdapter(private val productArrayList: List<AdEntity>?) :
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.recycler_view_item, parent, false)
 
+        Log.d("dataAdapter", productArrayList.toString())
+
         return ItemViewHolder(itemView)
     }
 
     override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
 
         if (viewHolder is ItemViewHolder) {
+
+
 
             val product = this.productsFiltered!![position]
 

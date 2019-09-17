@@ -70,7 +70,7 @@ class ProductActivity : AppCompatActivity() {
         video = videoView
 
         val intent = intent
-        product = intent.getSerializableExtra("Annonce") as AdEntity
+        product = intent.getSerializableExtra("annonce") as AdEntity
 
         for (i in product.imgs) {
             imageList.add(SlideModel(i))
@@ -79,7 +79,7 @@ class ProductActivity : AppCompatActivity() {
 
         email.text = product.ownerMail
         number.text = product.ownerPhone
-      //  number2.text = product.owner.phone2
+        //  number2.text = product.owner.phone2
         categorya.text = product.category
         addressa.text = product.ownerAddress
         surfacea.text = product.area
@@ -147,7 +147,11 @@ class ProductActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         var permissionGranted = false
         when (requestCode) {
             9 -> permissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED
